@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FuelLog</string>
+    <string name="tab_text_1">Übersicht</string>
+    <string name="tab_text_2">Tankstopp</string>
+    <string name="tab_text_3">Diagramme</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="distance">zurückgelegte Strecke: </string>
+    <string name="fuel">verbrauchter Kraftstoff: </string>
+    <string name="price">Gesamtausgaben: </string>
+    <string name="consumption">durchschnittlicher Verbrauch: </string>
+    <string name="km100_consumption">Verbrauch pro 100km: </string>
+
+
+</resources>
