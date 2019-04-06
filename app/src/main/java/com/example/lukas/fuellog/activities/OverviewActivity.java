@@ -1,6 +1,7 @@
 package com.example.lukas.fuellog.activities;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lukas.fuellog.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OverviewActivity extends AppCompatActivity {
 
@@ -51,10 +55,10 @@ public class OverviewActivity extends AppCompatActivity {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        setupViewPager(mViewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-
+        tabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
@@ -66,6 +70,14 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setupViewPager(ViewPager viewPager){
+        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SummaryFragment(), "TAP1");
+        adapter.addFragment(new FuelStopsFragment(), "TAP2");
+        adapter.addFragment(new DiagramFragment(), "TAP3");
+        viewPager.setAdapter(adapter);
     }
 
 
@@ -119,9 +131,9 @@ public class OverviewActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
+       //     TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+       //     textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -132,15 +144,29 @@ public class OverviewActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public void addFragment(Fragment frag, String title){
+            mFragmentList.add(frag);
+            mFragmentTitleList.add(title);
+        }
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return super.getPageTitle(position);
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return mFragmentList.get(position);
         }
 
         @Override
