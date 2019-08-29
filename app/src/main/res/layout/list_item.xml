@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textViewIndex"
+        android:layout_width="164dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewIndex"
+        android:layout_alignParentStart="true"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/textViewStation"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewDate"
+        android:layout_alignParentStart="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewKmCounter"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewStation"
+        android:layout_alignParentStart="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewVolume"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewKmCounter"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="-79dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewVolume"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="0dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewPpl"
+        android:layout_width="165dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewPrice"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="166dp"
+        android:layout_marginTop="1dp"
+        android:text="TextView" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="2dp" />
+</RelativeLayout>

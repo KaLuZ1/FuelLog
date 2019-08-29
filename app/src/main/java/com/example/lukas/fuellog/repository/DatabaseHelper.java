@@ -2,10 +2,14 @@ package com.example.lukas.fuellog.repository;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.lukas.fuellog.models.RefuelStop;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -27,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL1 + " DATE, " +
+                COL1 + " TEXT, " +
                 COL2 + " TEXT, " +
                 COL3 + " INTEGER, " +
                 COL4 + " FLOAT, " +
@@ -52,11 +56,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL5, stop.getPrice());
         contentValues.put(COL6, stop.getPPL());
 
+        Log.d(TAG, "addData: Adding " + stop.getStation() + "to" + TABLE_NAME);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
-        return result < 0 ? false : true;
+        if(result == -1){
+            return false;
+        } else {
+            return true;
+        }
 
     }
+
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select * from " + TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    public int getCurrentKmCount(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select max(" + COL3 + ") FROM " + TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        if(data.getCount() == -1) {
+            return 0;
+        } else if(data.getCount() > 1){
+            return data.getInt(1);
+        } else {
+            return 0;
+        }
+    }
+
+    public boolean deleteStops(ArrayList<RefuelStop> blackList) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_NAME + " WHERE";
+        while (!blackList.isEmpty()){
+            query += " ID=" + blackList.get(0).getId() + " OR";
+            blackList.remove(0);
+        }
+        query = query.substring(0, query.length() - 2);
+        db.execSQL(query);
+        return true;
+    }
+
+    // public boolean deleteStops()
+
 
 }
